@@ -1,71 +1,46 @@
-html,
-body {
-  position: relative;
-  width: 100%;
-  height: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,600;0,700;1,200;1,400;1,600;1,700&display=swap');
+
+:root {
+  --color-vivid-tangerine: #ff9580;
+  --color-spring-wood: #f8f8f2;
+  --color-mint-green: #8aff80;
+  --color-kimberly: #7970a9;
+  --color-hot-pink: #ff80bf;
+  --color-heliotrope: #9580ff;
+  --color-gun-powder: #454158;
+  --color-dolly: #ffff80;
+  --color-chardonnay: #ffca80;
+  --color-charade: #22212c;
+  --color-aquamarine: #80ffea;
+
+  --main-bg-color: var(--color-charade);
+  --main-fg-color: var(--color-spring-wood);
+  --main-heading-color: var(--color-gun-powder);
+
+  --main-gain-color: var(--color-mint-green);
 }
 
-body {
-  color: #333;
-  margin: 0;
-  padding: 8px;
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
 
-a {
-  color: rgb(0, 100, 200);
-  text-decoration: none;
+body {
+  background-color: var(--main-bg-color);
+  color: var(--main-fg-color);
+  font-family: Nunito, sans-serif;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
-a:visited {
-  color: rgb(0, 80, 160);
-}
-
-label {
-  display: block;
-}
-
-input,
-button,
-select,
-textarea {
-  font-family: inherit;
-  font-size: inherit;
-  padding: 0.4em;
-  margin: 0 0 0.5em 0;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-}
-
-input:disabled {
-  color: #ccc;
-}
-
-input[type='range'] {
-  height: 0;
-}
-
-button {
-  color: #333;
-  background-color: #f4f4f4;
-  outline: none;
-}
-
-button:disabled {
-  color: #999;
-}
-
-button:not(:disabled):active {
-  background-color: #ddd;
-}
-
-button:focus {
-  border-color: #666;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--main-heading-color);
 }
