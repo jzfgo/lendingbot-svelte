@@ -31,6 +31,7 @@ html {
 }
 
 body {
+  margin: 0;
   background-color: var(--main-bg-color);
   color: var(--main-fg-color);
   font-family: Nunito, sans-serif;
