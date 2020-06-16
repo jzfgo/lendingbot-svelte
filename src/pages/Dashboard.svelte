@@ -19,7 +19,7 @@
   const logSummary = {
     item: 'Using MACD as mindailyrate 0.0142% for BTC Using MACD as mindailyrate 0.0142% for BTC',
     timeAgo: '36s ago',
-  }
+  };
 </script>
 
 <TitleBar {...titleBarProps} />
@@ -55,7 +55,7 @@
     margin-top: 1.25rem;
   }
 
-section h2 {
+  section h2 {
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0;

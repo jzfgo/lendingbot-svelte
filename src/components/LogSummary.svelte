@@ -13,7 +13,7 @@
 <style>
   .log-summary {
     opacity: 0.3;
-    color: --color-spring-wood;
+    color: var(--color-spring-wood);
     font-size: 0.625rem;
     letter-spacing: 0;
 

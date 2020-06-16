@@ -1,17 +1,21 @@
 <script>
   import TitleBar from "../components/TitleBar.svelte";
+  import LogItem from "../components/LogItem.svelte";
 
   let log = [];
 
   $: getActivity();
 
-  function getActivity() {
-    fetch(`/botlog.json`)
-      .then(res => res.json())
-      .then(json => {
-        log = json.log || [];
-      });
-  }
+  $: logProcessed = log.map(item => ({
+    time: item.substr(0, 19),
+    message: item.substr(20)
+  }));
+
+  const getActivity = () => fetch(`/botlog.json`)
+    .then(res => res.json())
+    .then(json => {
+      log = json.log || [];
+    });
 
   const titleBarProps = {
     title: 'Activity Log',
@@ -20,10 +24,10 @@
 
 <TitleBar {...titleBarProps} />
 
-{#if log}
+{#if logProcessed}
   <ul>
-	{#each log as logItem}
-    <li>{logItem}</li>
+	{#each logProcessed as logItem}
+    <LogItem {...logItem} />
   {/each}
   </ul>
 {:else}
@@ -45,6 +49,6 @@
     margin-bottom: 20px;
     font-weight: 700;
     font-size: 0.75rem;
-    color: --color-spring-wood;
+    color: var(--color-spring-wood);
   }
 </style>

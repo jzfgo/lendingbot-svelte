@@ -14,12 +14,33 @@
   let progress = circ * (1 - pct);
 </script>
 
-<svg {width} {height} viewBox={`0 0 ${width} ${height}`}>
-  <circle cx={radius} cy={radius} r={internalRadius} fill="none" stroke={trackColor} stroke-width={stokeWidth} />
-  <circle class="progress" cx={radius} cy={radius} r={internalRadius} fill="none" stroke={progressColor} stroke-width={stokeWidth} style="--circ: {circ}; --progress: {progress}" />
-</svg>
+<div class="radial-graph" style="--width: {width}px; --height: {height}px">
+  <svg {width} {height} viewBox={`0 0 ${width} ${height}`}>
+    <circle cx={radius} cy={radius} r={internalRadius} fill="none" stroke={trackColor} stroke-width={stokeWidth} />
+    <circle class="progress" cx={radius} cy={radius} r={internalRadius} fill="none" stroke={progressColor} stroke-width={stokeWidth} style="--circ: {circ}; --progress: {progress}" />
+  </svg>
+  <div class="slot">
+    <slot />
+  </div>
+</div>
 
 <style>
+  .radial-graph {
+    width: var(--width);
+    height: var(--height);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    place-items: center;
+  }
+
+  svg, .slot {
+    width: var(--width);
+    height: var(--height);
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+  }
+
   svg {
     transform: rotate(-90deg);
   }
