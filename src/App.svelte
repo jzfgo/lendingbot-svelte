@@ -1,5 +1,5 @@
 <script>
-	import { view } from './stores.js';
+  import { view } from './stores';
 
   import ActivityLog from './pages/ActivityLog.svelte';
   import Currency from './pages/Currency.svelte';
