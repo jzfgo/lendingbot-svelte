@@ -20,6 +20,8 @@
     display: grid;
     grid-template-columns: 1fr min-content;
     grid-gap: 1rem;
+
+    margin-left: .75rem;
   }
 
   .log-item {

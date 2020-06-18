@@ -31,7 +31,7 @@
     grid-gap: 1rem;
 
     height: 2rem;
-    margin: 0.75rem;
+    margin: .75rem 0 .75rem .75rem;
   }
 
   .graph {}
