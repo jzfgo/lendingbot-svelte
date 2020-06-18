@@ -15,6 +15,7 @@
     .then(res => res.json())
     .then(json => {
       log = json.log || [];
+      log.reverse();
     });
 
   const titleBarProps = {
