@@ -1,6 +1,6 @@
 <script>
   import RadialGraph from "./graphs/RadialGraph.svelte";
-  import TempGraph from "../assets/images/tmpgraph.svg";
+  import TempGraph from "../assets/images/tmp-graph.svg";
   import BtcIcon from '../assets/images/currencies/btc.svg';
 
   export let coin = {};

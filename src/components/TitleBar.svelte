@@ -3,7 +3,7 @@
 
   import LogoIcon from '../assets/images/lenny.svg';
   import SettingsIcon from '../assets/images/cog.svg';
-  import BackIcon from '../assets/images/angleleft.svg';
+  import BackIcon from '../assets/images/angle-left.svg';
 
   export let title = '';
   export let left = {

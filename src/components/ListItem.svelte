@@ -1,7 +1,7 @@
 <script>
 	import { view } from '../stores.js';
 
-  import AngleRight from '../assets/images/angleright.svg';
+  import AngleRight from '../assets/images/angle-right.svg';
 
   export let link;
 
