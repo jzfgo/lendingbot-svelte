@@ -1,13 +1,11 @@
 <script>
-  export let logSummary = {
-    item: 'No activity',
-    timeAgo: '0s ago',
-  };
+  export let time = '0s ago';
+  export let message = 'No activity';
 </script>
 
 <div class="log-summary">
-  <span class="log-item">{logSummary.item}</span>
-  <span class="item-timeago">{logSummary.timeAgo}</span>
+  <span class="log-message">{message}</span>
+  <span class="item-time">{time}</span>
 </div>
 
 <style>
@@ -24,13 +22,13 @@
     margin-left: .75rem;
   }
 
-  .log-item {
+  .log-message {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
   }
 
-  .item-timeago {
+  .item-time {
     font-weight: 700;
     white-space: nowrap;
   }

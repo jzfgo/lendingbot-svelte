@@ -1,8 +1,18 @@
 <script>
+	import { tweened } from 'svelte/motion';
+  import { cubicOut } from 'svelte/easing';
+
+  import { data } from '../stores'
+
   import TitleBar from "../components/TitleBar.svelte";
   import ListItem from "../components/ListItem.svelte";
   import CoinSummary from "../components/CoinSummary.svelte";
   import LogSummary from "../components/LogSummary.svelte";
+
+  const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
 
   const titleBarProps = {
     title: 'Lenny',
@@ -16,39 +26,51 @@
     }
   };
 
-  const logSummary = {
-    item: 'Using MACD as mindailyrate 0.0142% for BTC Using MACD as mindailyrate 0.0142% for BTC',
-    timeAgo: '36s ago',
-  };
+  const earningsTotal = tweened(0, {
+    duration: 400,
+    easing: cubicOut
+  });
+
+  const earnings24h = tweened(0, {
+    duration: 400,
+    easing: cubicOut
+  });
+
+  $: if ($data.summary) {
+    earningsTotal.set($data.summary.earningsTotal);
+    earnings24h.set($data.summary.earnings24h);
+  }
 </script>
 
 <TitleBar {...titleBarProps} />
 
 <section class="summary">
-  <h2>Total earnings since March 14, 2020</h2>
-  <div class="earnings-total">$181.01</div>
-  <div class="earnings-24h">+$0.16 24h</div>
+  <h2>Total earnings</h2>
+{#if $data.summary}
+  <div class="earnings-total">{CURRENCY_FORMATTER.format($earningsTotal)}</div>
+  <div class="earnings-24h">+ {CURRENCY_FORMATTER.format($earnings24h)} 24h</div>
+{/if}
 </section>
 
+{#if $data.currencies}
 <section class="currencies">
   <h2>Earnings by currency</h2>
-  <ListItem link="currency">
-    <CoinSummary/>
+  {#each $data.currencies as currency}
+  <ListItem link={{view: 'currency', params: {ticker: currency.ticker}}}>
+    <CoinSummary {...currency} />
   </ListItem>
-  <ListItem link="currency">
-    <CoinSummary/>
-  </ListItem>
-  <ListItem link="currency">
-    <CoinSummary/>
-  </ListItem>
+  {/each}
 </section>
+{/if}
 
+{#if $data.log}
 <section class="module log">
   <h2>Activity log</h2>
   <ListItem link="activity-log">
-    <LogSummary {logSummary} />
+    <LogSummary {...$data.log[0]} />
   </ListItem>
 </section>
+{/if}
 
 <style>
   section {

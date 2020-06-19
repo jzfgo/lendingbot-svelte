@@ -1,22 +1,8 @@
 <script>
+  import { data } from '../stores'
+
   import TitleBar from "../components/TitleBar.svelte";
   import LogItem from "../components/LogItem.svelte";
-
-  let log = [];
-
-  $: getActivity();
-
-  $: logProcessed = log.map(item => ({
-    time: item.substr(0, 19),
-    message: item.substr(20)
-  }));
-
-  const getActivity = () => fetch(`/botlog.json`)
-    .then(res => res.json())
-    .then(json => {
-      log = json.log || [];
-      log.reverse();
-    });
 
   const titleBarProps = {
     title: 'Activity Log',
@@ -25,9 +11,9 @@
 
 <TitleBar {...titleBarProps} />
 
-{#if logProcessed}
+{#if $data.log}
   <ul>
-	{#each logProcessed as logItem}
+	{#each $data.log as logItem}
     <LogItem {...logItem} />
   {/each}
   </ul>

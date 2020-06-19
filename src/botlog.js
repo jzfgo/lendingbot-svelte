@@ -1,15 +1,15 @@
-const getBotlog = async () => {
-  let res = await fetch(`/botlog.json`);
+const getJSON = async () => {
+  let res = await fetch(`/botlog.json?${Date.now()}`);
   let data = await res.json();
   return data;
 };
 
-const processLog = async (rawData) => {
-  const logProcessed = [];
+const processLog = (data) => {
+  let logProcessed = [];
 
-  if (rawData && rawData['log']) {
-    rawData.log.reverse();
-    logProcessed = rawData.log.map((item) => ({
+  if (data && data.log) {
+    data.log.reverse();
+    logProcessed = data.log.map((item) => ({
       time: item.substr(0, 19),
       message: item.substr(20),
     }));
@@ -18,54 +18,52 @@ const processLog = async (rawData) => {
   return logProcessed;
 };
 
-// {
-//   "averageLendingRate": "0.01267965418791304111632395160",
-//   "lentSum": "2.04029305",
-//   "maxToLend": "2.04029305",
-//   "totalCoins": "2.04029305",
-//   "totalEarnings": "0.0155872"
-// }
-// {
-//   "averageLendingRate": "0.01202675408583082138842257237",
-//   "couple": "BTC_ETH",
-//   "highestBid": "0.024597",
-//   "lentSum": "7.10483681",
-//   "maxToLend": "7.10483681",
-//   "todayEarnings": "0.00073477",
-//   "totalCoins": "7.10483681",
-//   "totalEarnings": "0.04869161",
-//   "yesterdayEarnings": "0.00065547"
-// }
-const processCurrency = async (ticker, data) => {
-  let currency = {};
-  const exchangeRate = 9408.6;
-  let tickerRate = data.highestBid || 1;
+const processCurrency = (ticker, data, displayCurrency) => {
+  const exchangeRate = displayCurrency.highestBid;
+  let tickerRate = data[ticker].highestBid || 1;
 
-  currency.pctLent = rawCurrency.lentSum / rawCurrency.maxToLend;
-  currency.ticker = ticker.toLowerCase();
-  currency.todayEarnings = data.totalEarnings * tickerRate * exchangeRate;
-  // todo
+  return {
+    ticker: ticker.toLowerCase(),
+    pctLent: data[ticker].lentSum / data[ticker].maxToLend,
+    earningsTotal:
+      (data[ticker].totalEarnings || 0) * tickerRate * exchangeRate,
+    earnings24h:
+      (data[ticker].yesterdayEarnings || 0) * tickerRate * exchangeRate,
+  };
 };
 
-const processCurrencies = async (rawData) => {
-  const currencies = [];
+const processCurrencies = (data) => {
+  let currencies = [];
+  let summary = {};
 
-  if (rawData && rawData['raw_data']) {
-    const currenciesArray = Object.keys(rawData.raw_data);
+  if (data && data['raw_data']) {
+    const tickers = Object.keys(data.raw_data);
 
-    currenciesArray.forEach((ticker) => {
-      let currency = processCurrency(ticker, rawData.raw_data);
+    tickers.forEach((ticker) => {
+      let currency = processCurrency(
+        ticker,
+        data.raw_data,
+        data.outputCurrency
+      );
       currencies.push(currency);
     });
+
+    summary = currencies.reduce((a, b) => ({
+      earningsTotal: a.earningsTotal + b.earningsTotal,
+      earnings24h: a.earnings24h + b.earnings24h,
+    }));
+
+    return { currencies, summary };
   }
 
   return currencies;
 };
 
-const buildObject = async (rawData) => {
-  const botlog = await getBotlog();
+export default async () => {
+  const botlog = await getJSON();
 
-  let data = {};
-  data.log = await processLog(botlog);
-  data.currencies = await processCurrencies(botlog);
+  return {
+    ...processCurrencies(botlog),
+    log: processLog(botlog),
+  };
 };

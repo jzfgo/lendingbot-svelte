@@ -10,7 +10,7 @@
       icon: 'back',
       link: 'dashboard',
   };
-  export let right;
+  export let right = {};
 
   const icons = {
     logo: LogoIcon,
