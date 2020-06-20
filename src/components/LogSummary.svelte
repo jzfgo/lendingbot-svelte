@@ -1,11 +1,18 @@
 <script>
-  export let time = '0s ago';
+  import { onMount } from 'svelte';
+  import * as timeago from 'timeago.js';
+  import { onInterval } from '../utils'
+
+  export let time = 'just now';
   export let message = 'No activity';
+
+  let timeFormatted = timeago.format(time);
+	onInterval(() => timeFormatted = timeago.format(time), 30000);
 </script>
 
 <div class="log-summary">
   <span class="log-message">{message}</span>
-  <span class="item-time">{time}</span>
+  <span class="item-time">{timeFormatted}</span>
 </div>
 
 <style>
