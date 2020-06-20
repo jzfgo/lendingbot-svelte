@@ -9,33 +9,21 @@
   };
 </script>
 
-<TitleBar {...titleBarProps} />
-
-{#if $data.log}
-  <ul>
-	{#each $data.log as logItem}
-    <LogItem {...logItem} />
-  {/each}
-  </ul>
-{:else}
-  No activity.
-{/if}
+<main>
+  <TitleBar {...titleBarProps} />
+  {#if $data.log}
+    <div class="log">
+      {#each $data.log as logItem}
+        <LogItem {...logItem} />
+      {:else}
+        No activity.
+      {/each}
+    </div>
+  {/if}
+</main>
 
 <style>
-  :global(body) {
-    background-color: #17171e;
-  }
-
-  ul {
-    list-style: none;
-    margin: 1.25rem 0.9375rem;
-    padding-left: 0;
-  }
-
-  li {
-    margin-bottom: 20px;
-    font-weight: 700;
-    font-size: 0.75rem;
-    color: var(--color-spring-wood);
-  }
+.log {
+  padding: 20px 15px;
+}
 </style>

@@ -1,5 +1,5 @@
 <script>
-	import { tweened } from 'svelte/motion';
+  import { tweened } from 'svelte/motion';
   import { cubicOut } from 'svelte/easing';
 
   import { data } from '../stores'
@@ -18,11 +18,10 @@
     title: 'Lenny',
     left: {
       icon: 'logo',
-      link: 'dashboard'
     },
     right: {
       icon: 'settings',
-      link: 'settings'
+      link: { view: 'settings' }
     }
   };
 
@@ -42,37 +41,43 @@
   }
 </script>
 
-<TitleBar {...titleBarProps} />
+<main>
+  <TitleBar {...titleBarProps} />
 
-<section class="summary">
-  <h2>Total earnings</h2>
-{#if $data.summary}
-  <div class="earnings-total">{CURRENCY_FORMATTER.format($earningsTotal)}</div>
-  <div class="earnings-24h">+ {CURRENCY_FORMATTER.format($earnings24h)} 24h</div>
-{/if}
-</section>
+  <section class="summary">
+    <h2>Total earnings</h2>
+  {#if $data.summary}
+    <div class="earnings-total">{CURRENCY_FORMATTER.format($earningsTotal)}</div>
+    <div class="earnings-24h">+ {CURRENCY_FORMATTER.format($earnings24h)} 24h</div>
+  {/if}
+  </section>
 
-{#if $data.currencies}
-<section class="currencies">
-  <h2>Earnings by currency</h2>
-  {#each $data.currencies as currency}
-  <ListItem link={{view: 'currency', params: {ticker: currency.ticker}}}>
-    <CoinSummary {...currency} />
-  </ListItem>
-  {/each}
-</section>
-{/if}
+  {#if $data.currencies}
+  <section class="currencies">
+    <h2>Earnings by currency</h2>
+    {#each $data.currencies as currency}
+    <ListItem link={{view: 'currency', params: { ticker: currency.ticker }}}>
+      <CoinSummary {...currency} />
+    </ListItem>
+    {/each}
+  </section>
+  {/if}
 
-{#if $data.log}
-<section class="module log">
-  <h2>Activity log</h2>
-  <ListItem link="activity-log">
-    <LogSummary {...$data.log[0]} />
-  </ListItem>
-</section>
-{/if}
+  {#if $data.log}
+  <section class="module log">
+    <h2>Activity log</h2>
+    <ListItem link={{ view: 'activity-log' }}>
+      <LogSummary {...$data.log[0]} />
+    </ListItem>
+  </section>
+  {/if}
+</main>
 
 <style>
+  main {
+    background-color: var(--color-charade);
+  }
+
   section {
     margin-top: 1.25rem;
   }

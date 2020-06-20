@@ -6,23 +6,18 @@
   import Dashboard from './pages/Dashboard.svelte';
   import Settings from './pages/Settings.svelte';
 
-	let currentView;
+  let currentView;
 
-  const views = {
+  const pages = {
     'activity-log': ActivityLog,
     'currency': Currency,
     'dashboard': Dashboard,
     'settings': Settings,
   };
 
-	const unsubscribe = view.subscribe(value => {
-		currentView = value;
-	});
+  const unsubscribe = view.subscribe(value => {
+    currentView = value;
+  });
 </script>
 
-<main>
-  <svelte:component this={views[currentView]}/>
-</main>
-
-<style>
-</style>
+<svelte:component this={pages[currentView.view]} {...currentView.params} />

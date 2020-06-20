@@ -8,7 +8,7 @@
   export let title = '';
   export let left = {
       icon: 'back',
-      link: 'dashboard',
+      link: { view: 'dashboard' },
   };
   export let right = {};
 
@@ -30,15 +30,10 @@
 </div>
 
 <style>
-  :global(main) {
-    position: relative;
-    /* padding-top: 5rem; */
-  }
-
-.title-bar {
+  .title-bar {
     height: 3.75rem;
     padding: 0.625rem;
-    background-color: var(--main-bg-color);
+    background-color: var(--color-charade);
 
     display: grid;
     grid-template-columns: 2.5rem 1fr 2.5rem;
@@ -56,5 +51,6 @@
     text-align: center;
     color: var(--main-fg-color);
     margin: 0;
+
   }
 </style>
