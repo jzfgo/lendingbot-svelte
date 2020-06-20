@@ -1,5 +1,5 @@
 <script>
-	import { view } from '../stores.js';
+  import { view } from '../stores.js';
 
   export let link;
   export let image;

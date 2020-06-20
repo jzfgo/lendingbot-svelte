@@ -7,7 +7,7 @@
   export let message = 'No activity';
 
   let timeFormatted = timeago.format(time);
-	onInterval(() => timeFormatted = timeago.format(time), 30000);
+  onInterval(() => timeFormatted = timeago.format(time), 30000);
 </script>
 
 <div class="log-summary">

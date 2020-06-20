@@ -1,5 +1,5 @@
 <script>
-	import { view } from '../stores.js';
+  import { view } from '../stores.js';
 
   import AngleRight from '../assets/images/angle-right.svg';
 

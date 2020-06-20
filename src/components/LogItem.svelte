@@ -16,6 +16,7 @@
 
     margin-bottom: 0.625rem;
     letter-spacing: 0;
+    font-weight: 700;
     font-size: 0.75rem;
 }
 
@@ -24,7 +25,6 @@
     text-align: center;
     border-radius: 0.1875rem;
     background-color: var(--color-charade);
-    font-weight: 700;
   }
 
   .message {
