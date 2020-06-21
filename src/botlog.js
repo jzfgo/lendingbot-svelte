@@ -19,8 +19,11 @@ const processLog = (data) => {
 };
 
 const processCurrency = (ticker, data, displayCurrency) => {
-  const exchangeRate = displayCurrency.highestBid;
-  let tickerRate = data[ticker].highestBid || 1;
+  const sameCurrency = ticker == displayCurrency.currency;
+  // 1 for BTC and the current display currency, ticker's exchange rate for the rest
+  const tickerRate = sameCurrency ? 1 : data[ticker].highestBid || 1;
+  // 1 for the current display currency, display currency's exchange rate for the rest
+  const exchangeRate = sameCurrency ? 1 : displayCurrency.highestBid;
 
   return {
     ticker: ticker.toLowerCase(),
@@ -55,8 +58,6 @@ const processCurrencies = (data) => {
 
     return { currencies, summary };
   }
-
-  return currencies;
 };
 
 export default async () => {
